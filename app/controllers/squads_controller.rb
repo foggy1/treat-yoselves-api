@@ -7,4 +7,9 @@ class SquadsController < ApplicationController
 
   def destroy
   end
+
+  private
+  def relevant_params
+    params.require(:squad).permit(:name)
+  end
 end

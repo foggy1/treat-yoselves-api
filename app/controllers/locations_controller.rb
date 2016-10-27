@@ -7,4 +7,9 @@ class LocationsController < ApplicationController
 
   def destroy
   end
+
+  private
+  def relevant_params
+    params.require(:location).permit(:latitude, :longitude)
+  end
 end
