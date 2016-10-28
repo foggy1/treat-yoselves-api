@@ -15,7 +15,20 @@ class SquadsController < ApplicationController
     end
   end
 
+  def list
+    @squads = Squad.all
+    render json: @squads.as_json
+  end
+
   def update
+    if !logged_in
+      @errors = "You must be logged in!"
+      render json: @errors.as_json
+    end
+    @squad = Squad.find_by(id: params[:squad][:id])
+    @user = current_user
+    @squad.users << @user
+    render json: @squad.as_json
   end
 
   def destroy
