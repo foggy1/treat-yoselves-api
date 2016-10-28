@@ -4,4 +4,7 @@ Rails.application.routes.draw do
   resources :locations, except: [:index, :new, :show, :edit]
   resources :squads, except: [:index, :new, :show, :edit]
   root 'welcome#index'
+  post '/login' => 'users#signin'
+  post '/logout' => 'users#logout'
+  post '/squads/list' => 'squads#list'
 end

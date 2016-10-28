@@ -1,37 +1,18 @@
 class UsersController < ApplicationController
-  def login
-    if logged_in?
-      @user = current_user
-      if request.xhr?
-        render json: @user.as_json
-      else
-        redirect_to @user
-      end
-    else
-      session[:login] = true
-      render "login"
-    end
-  end
 
   def signin
     @user = User.find_by(email: user_params[:email])
     if @user && @user.authenticate(user_params[:password])
       session[:user_id] = @user.id
-      if request.xhr?
-        render json: @user.as_json
-      else
-        redirect_to @user
-      end
+      render json: @user.as_json
     else
       @errors = ["Invalid email or password"]
-      render 'login'
+      render json: @errors.as_json
     end
   end
 
   def logout
-    require_user
     session.clear
-    redirect_to root_path
   end
 
   def new
