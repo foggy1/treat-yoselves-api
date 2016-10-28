@@ -41,14 +41,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      if request.xhr?
-        render json: @user.as_json
-      else
-        redirect_to root_path
-      end
+      render json: @user.as_json
     else
       @errors = @user.errors.full_messages
-      render 'new'
+      render json: @errors.as_json
     end
   end
 
