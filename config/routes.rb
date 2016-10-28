@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   resources :users, except: [:index, :new, :show, :edit]
   resources :locations, except: [:index, :new, :show, :edit]
   resources :squads, except: [:index, :new, :show, :edit]
+  root 'welcome#index'
 end
